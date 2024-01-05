@@ -1,2 +1,3 @@
 [plugins]
 zls-test = "source:target/wasm32-wasi/debug/zls_plugin.wasm"
+zls-toml-test = "source:zls.toml"

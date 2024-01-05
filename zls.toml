@@ -1,0 +1,28 @@
+# A TOML plugin for proto with GitHub Releases.
+# Only 0.11.0 and above releases are supported due to differences in file formats.
+# [dev](https://github.com/zigtools/zls/wiki/Installation#latest) versions are not supported.
+# If you want to try dev versions, use the WASM plugin instead.
+
+name = "zls"
+type = "cli"
+
+[platform.linux]
+archive-prefix = "zls-{arch}-linux"
+bin-path = "bin/zls"
+download-file = "zls-{arch}-linux.tar.gz"
+
+[platform.macos]
+archive-prefix = "zls-{arch}-macos"
+bin-path = "bin/zls"
+download-file = "zls-{arch}-macos.tar.gz"
+
+[platform.windows]
+archive-prefix = "zls-{arch}-windows"
+bin-path = "bin/zls.exe"
+download-file = "zls-{arch}-windows.zip"
+
+[install]
+download-url = "https://github.com/zigtools/zls/releases/download/{version}/{download_file}"
+
+[resolve]
+git-url = "https://github.com/zigtools/zls"
