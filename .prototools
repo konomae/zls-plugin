@@ -1,0 +1,2 @@
+[plugins]
+zls-test = "source:target/wasm32-wasi/debug/zls_plugin.wasm"
