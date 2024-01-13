@@ -74,7 +74,7 @@ pub fn locate_executables(
         primary: Some(ExecutableConfig::new(
             // proto renames the executable to the tool id.
             // https://github.com/moonrepo/proto/blob/0441fba931060122b55dd972573e126e607b306e/crates/core/src/tool.rs#L933
-            env.os.get_file_name(get_tool_id(), "exe"),
+            env.os.get_file_name(get_tool_id()?, "exe"),
         )),
         ..LocateExecutablesOutput::default()
     }))
