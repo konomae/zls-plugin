@@ -86,7 +86,10 @@ pub fn load_versions(Json(_): Json<LoadVersionsInput>) -> FnResult<Json<LoadVers
         fetch_url("https://zigtools-releases.nyc3.digitaloceanspaces.com/zls/index.json")?;
     let versions = response.versions.keys().map(|t| t.to_owned()).collect();
 
-    let output = LoadVersionsOutput::from(versions)?;
+    let mut output = LoadVersionsOutput::from(versions)?;
+    output
+        .aliases
+        .insert("master".into(), Version::parse(&response.latest)?);
 
     Ok(Json(output))
 }
