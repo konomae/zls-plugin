@@ -1,5 +1,5 @@
 # A TOML plugin for proto with GitHub Releases.
-# Only 0.11.0 and above releases are supported due to differences in file formats.
+# Only ZLS 0.11.0 and above releases are supported due to differences in file formats.
 # [dev](https://github.com/zigtools/zls/wiki/Installation#latest) versions are not supported.
 # If you want to try dev versions, use the WASM plugin instead.
 
