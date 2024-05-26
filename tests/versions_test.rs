@@ -3,7 +3,7 @@ use proto_pdk_test_utils::*;
 generate_resolve_versions_tests!("zls-test", {
     "0.11" => "0.11.0",
     "0.11.0" => "0.11.0",
-    "0" => "0.11.0",
+    "0" => "0.12.0",
 });
 
 #[test]
