@@ -8,7 +8,7 @@ Add the following to `.prototools`.
 
 ```toml
 [plugins]
-zls = "github:konomae/zls-plugin"
+zls = "github://konomae/zls-plugin"
 ```
 
 ## Configuration
