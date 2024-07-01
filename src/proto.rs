@@ -87,9 +87,10 @@ pub fn load_versions(Json(_): Json<LoadVersionsInput>) -> FnResult<Json<LoadVers
     let versions = response.versions.keys().map(|t| t.to_owned()).collect();
 
     let mut output = LoadVersionsOutput::from(versions)?;
-    output
-        .aliases
-        .insert("master".into(), Version::parse(&response.latest)?);
+    output.aliases.insert(
+        "master".into(),
+        UnresolvedVersionSpec::parse(&response.latest)?,
+    );
 
     Ok(Json(output))
 }
