@@ -6,10 +6,10 @@ static NAME: &str = "ZLS";
 static BIN: &str = "zls";
 
 #[plugin_fn]
-pub fn register_tool(_: ()) -> FnResult<Json<ToolMetadataOutput>> {
+pub fn register_tool(Json(_): Json<ToolMetadataInput>) -> FnResult<Json<ToolMetadataOutput>> {
     Ok(Json(ToolMetadataOutput {
         name: NAME.into(),
-        type_of: PluginType::CLI,
+        type_of: PluginType::CommandLine,
         plugin_version: Some(env!("CARGO_PKG_VERSION").into()),
         ..ToolMetadataOutput::default()
     }))
@@ -24,7 +24,7 @@ pub fn download_prebuilt(
     check_supported_os_and_arch(
         NAME,
         &env,
-        permutations! [
+        permutations![
             HostOS::Linux => [HostArch::X86, HostArch::X64, HostArch::Arm64],
             HostOS::MacOS => [HostArch::X64, HostArch::Arm64],
             HostOS::Windows => [HostArch::X86, HostArch::X64],
@@ -34,7 +34,7 @@ pub fn download_prebuilt(
     let mut version = input.context.version;
     if version.is_canary() {
         let response: ZlsDist =
-            fetch_url("https://zigtools-releases.nyc3.digitaloceanspaces.com/zls/index.json")?;
+            fetch_json("https://zigtools-releases.nyc3.digitaloceanspaces.com/zls/index.json")?;
         version = VersionSpec::parse(response.latest)?;
     }
 
@@ -83,7 +83,7 @@ pub fn locate_executables(
 #[plugin_fn]
 pub fn load_versions(Json(_): Json<LoadVersionsInput>) -> FnResult<Json<LoadVersionsOutput>> {
     let response: ZlsDist =
-        fetch_url("https://zigtools-releases.nyc3.digitaloceanspaces.com/zls/index.json")?;
+        fetch_json("https://zigtools-releases.nyc3.digitaloceanspaces.com/zls/index.json")?;
     let versions = response.versions.keys().map(|t| t.to_owned()).collect();
 
     let mut output = LoadVersionsOutput::from(versions)?;
