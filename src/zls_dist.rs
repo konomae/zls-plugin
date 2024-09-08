@@ -1,11 +1,11 @@
 use serde::Deserialize;
 use std::collections::HashMap;
 
-// https://github.com/zigtools/zls/issues/1472
+// https://github.com/zigtools/release-worker#v1zlsindexjson
 
 #[derive(Deserialize)]
 pub struct ZlsDist {
-    pub latest: String,
+    #[serde(flatten)]
     pub versions: HashMap<String, Empty>,
 }
 

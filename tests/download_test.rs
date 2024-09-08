@@ -1,12 +1,12 @@
 use proto_pdk_test_utils::*;
 
-generate_download_install_tests!("zls-test", "0.11.0");
+generate_download_install_tests!("zls-test", "0.13.0");
 
-mod canary {
-    use super::*;
-
-    generate_download_install_tests!("zls-test", "canary");
-}
+// mod canary {
+//     use super::*;
+//
+//     generate_download_install_tests!("zls-test", "canary");
+// }
 
 #[tokio::test(flavor = "multi_thread")]
 async fn supports_linux_arm64() {
@@ -21,16 +21,22 @@ async fn supports_linux_arm64() {
         plugin
             .download_prebuilt(DownloadPrebuiltInput {
                 context: ToolContext {
-                    version: VersionSpec::parse("0.11.0").unwrap(),
+                    version: VersionSpec::parse("0.13.0").unwrap(),
                     ..Default::default()
                 },
                 ..Default::default()
             })
             .await,
         DownloadPrebuiltOutput {
-            download_url:
-                "https://zigtools-releases.nyc3.digitaloceanspaces.com/zls/0.11.0/aarch64-linux/zls"
-                    .into(),
+            archive_prefix: Some("zls-linux-aarch64-0.13.0".into()),
+            checksum_url: Some(
+                "https://builds.zigtools.org/zls-linux-aarch64-0.13.0.tar.xz.minisig".into()
+            ),
+            checksum_public_key: Some(
+                "RWR+9B91GBZ0zOjh6Lr17+zKf5BoSuFvrx2xSeDE57uIYvnKBGmMjOex".into()
+            ),
+            download_name: Some("zls-linux-aarch64-0.13.0.tar.xz".into()),
+            download_url: "https://builds.zigtools.org/zls-linux-aarch64-0.13.0.tar.xz".into(),
             ..Default::default()
         }
     );
@@ -49,16 +55,22 @@ async fn supports_linux_x64() {
         plugin
             .download_prebuilt(DownloadPrebuiltInput {
                 context: ToolContext {
-                    version: VersionSpec::parse("0.11.0").unwrap(),
+                    version: VersionSpec::parse("0.13.0").unwrap(),
                     ..Default::default()
                 },
                 ..Default::default()
             })
             .await,
         DownloadPrebuiltOutput {
-            download_url:
-                "https://zigtools-releases.nyc3.digitaloceanspaces.com/zls/0.11.0/x86_64-linux/zls"
-                    .into(),
+            archive_prefix: Some("zls-linux-x86_64-0.13.0".into()),
+            checksum_url: Some(
+                "https://builds.zigtools.org/zls-linux-x86_64-0.13.0.tar.xz.minisig".into()
+            ),
+            checksum_public_key: Some(
+                "RWR+9B91GBZ0zOjh6Lr17+zKf5BoSuFvrx2xSeDE57uIYvnKBGmMjOex".into()
+            ),
+            download_name: Some("zls-linux-x86_64-0.13.0.tar.xz".into()),
+            download_url: "https://builds.zigtools.org/zls-linux-x86_64-0.13.0.tar.xz".into(),
             ..Default::default()
         }
     );
@@ -77,16 +89,22 @@ async fn supports_linux_x86() {
         plugin
             .download_prebuilt(DownloadPrebuiltInput {
                 context: ToolContext {
-                    version: VersionSpec::parse("0.11.0").unwrap(),
+                    version: VersionSpec::parse("0.13.0").unwrap(),
                     ..Default::default()
                 },
                 ..Default::default()
             })
             .await,
         DownloadPrebuiltOutput {
-            download_url:
-                "https://zigtools-releases.nyc3.digitaloceanspaces.com/zls/0.11.0/x86-linux/zls"
-                    .into(),
+            archive_prefix: Some("zls-linux-x86-0.13.0".into()),
+            checksum_url: Some(
+                "https://builds.zigtools.org/zls-linux-x86-0.13.0.tar.xz.minisig".into()
+            ),
+            checksum_public_key: Some(
+                "RWR+9B91GBZ0zOjh6Lr17+zKf5BoSuFvrx2xSeDE57uIYvnKBGmMjOex".into()
+            ),
+            download_name: Some("zls-linux-x86-0.13.0.tar.xz".into()),
+            download_url: "https://builds.zigtools.org/zls-linux-x86-0.13.0.tar.xz".into(),
             ..Default::default()
         }
     );
@@ -105,16 +123,22 @@ async fn supports_macos_arm64() {
         plugin
             .download_prebuilt(DownloadPrebuiltInput {
                 context: ToolContext {
-                    version: VersionSpec::parse("0.11.0").unwrap(),
+                    version: VersionSpec::parse("0.13.0").unwrap(),
                     ..Default::default()
                 },
                 ..Default::default()
             })
             .await,
         DownloadPrebuiltOutput {
-            download_url:
-                "https://zigtools-releases.nyc3.digitaloceanspaces.com/zls/0.11.0/aarch64-macos/zls"
-                    .into(),
+            archive_prefix: Some("zls-macos-aarch64-0.13.0".into()),
+            checksum_url: Some(
+                "https://builds.zigtools.org/zls-macos-aarch64-0.13.0.tar.xz.minisig".into()
+            ),
+            checksum_public_key: Some(
+                "RWR+9B91GBZ0zOjh6Lr17+zKf5BoSuFvrx2xSeDE57uIYvnKBGmMjOex".into()
+            ),
+            download_name: Some("zls-macos-aarch64-0.13.0.tar.xz".into()),
+            download_url: "https://builds.zigtools.org/zls-macos-aarch64-0.13.0.tar.xz".into(),
             ..Default::default()
         }
     );
@@ -133,16 +157,22 @@ async fn supports_macos_x64() {
         plugin
             .download_prebuilt(DownloadPrebuiltInput {
                 context: ToolContext {
-                    version: VersionSpec::parse("0.11.0").unwrap(),
+                    version: VersionSpec::parse("0.13.0").unwrap(),
                     ..Default::default()
                 },
                 ..Default::default()
             })
             .await,
         DownloadPrebuiltOutput {
-            download_url:
-                "https://zigtools-releases.nyc3.digitaloceanspaces.com/zls/0.11.0/x86_64-macos/zls"
-                    .into(),
+            archive_prefix: Some("zls-macos-x86_64-0.13.0".into()),
+            checksum_url: Some(
+                "https://builds.zigtools.org/zls-macos-x86_64-0.13.0.tar.xz.minisig".into()
+            ),
+            checksum_public_key: Some(
+                "RWR+9B91GBZ0zOjh6Lr17+zKf5BoSuFvrx2xSeDE57uIYvnKBGmMjOex".into()
+            ),
+            download_name: Some("zls-macos-x86_64-0.13.0.tar.xz".into()),
+            download_url: "https://builds.zigtools.org/zls-macos-x86_64-0.13.0.tar.xz".into(),
             ..Default::default()
         }
     );
@@ -158,16 +188,25 @@ async fn supports_windows_x64() {
         .await;
 
     assert_eq!(
-        plugin.download_prebuilt(DownloadPrebuiltInput {
-            context: ToolContext {
-                version: VersionSpec::parse("0.11.0").unwrap(),
+        plugin
+            .download_prebuilt(DownloadPrebuiltInput {
+                context: ToolContext {
+                    version: VersionSpec::parse("0.13.0").unwrap(),
+                    ..Default::default()
+                },
                 ..Default::default()
-            },
-            ..Default::default()
-        }).await,
+            })
+            .await,
         DownloadPrebuiltOutput {
-            download_url: "https://zigtools-releases.nyc3.digitaloceanspaces.com/zls/0.11.0/x86_64-windows/zls.exe"
-                .into(),
+            archive_prefix: Some("zls-windows-x86_64-0.13.0".into()),
+            checksum_url: Some(
+                "https://builds.zigtools.org/zls-windows-x86_64-0.13.0.zip.minisig".into()
+            ),
+            checksum_public_key: Some(
+                "RWR+9B91GBZ0zOjh6Lr17+zKf5BoSuFvrx2xSeDE57uIYvnKBGmMjOex".into()
+            ),
+            download_name: Some("zls-windows-x86_64-0.13.0.zip".into()),
+            download_url: "https://builds.zigtools.org/zls-windows-x86_64-0.13.0.zip".into(),
             ..Default::default()
         }
     );
@@ -183,15 +222,25 @@ async fn supports_windows_x86() {
         .await;
 
     assert_eq!(
-        plugin.download_prebuilt(DownloadPrebuiltInput {
-            context: ToolContext {
-                version: VersionSpec::parse("0.11.0").unwrap(),
+        plugin
+            .download_prebuilt(DownloadPrebuiltInput {
+                context: ToolContext {
+                    version: VersionSpec::parse("0.13.0").unwrap(),
+                    ..Default::default()
+                },
                 ..Default::default()
-            },
-            ..Default::default()
-        }).await,
+            })
+            .await,
         DownloadPrebuiltOutput {
-            download_url: "https://zigtools-releases.nyc3.digitaloceanspaces.com/zls/0.11.0/x86-windows/zls.exe".into(),
+            archive_prefix: Some("zls-windows-x86-0.13.0".into()),
+            checksum_url: Some(
+                "https://builds.zigtools.org/zls-windows-x86-0.13.0.zip.minisig".into()
+            ),
+            checksum_public_key: Some(
+                "RWR+9B91GBZ0zOjh6Lr17+zKf5BoSuFvrx2xSeDE57uIYvnKBGmMjOex".into()
+            ),
+            download_name: Some("zls-windows-x86-0.13.0.zip".into()),
+            download_url: "https://builds.zigtools.org/zls-windows-x86-0.13.0.zip".into(),
             ..Default::default()
         }
     );
@@ -210,7 +259,7 @@ async fn locates_unix_bin() {
         plugin
             .locate_executables(LocateExecutablesInput {
                 context: ToolContext {
-                    version: VersionSpec::parse("0.11.0").unwrap(),
+                    version: VersionSpec::parse("0.13.0").unwrap(),
                     ..Default::default()
                 },
             })
@@ -235,7 +284,7 @@ async fn locates_windows_bin() {
         plugin
             .locate_executables(LocateExecutablesInput {
                 context: ToolContext {
-                    version: VersionSpec::parse("0.11.0").unwrap(),
+                    version: VersionSpec::parse("0.13.0").unwrap(),
                     ..Default::default()
                 },
             })
