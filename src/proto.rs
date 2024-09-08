@@ -31,12 +31,7 @@ pub fn download_prebuilt(
         ],
     )?;
 
-    let mut version = input.context.version;
-    if version.is_canary() {
-        let response: ZlsDist =
-            fetch_json("https://zigtools-releases.nyc3.digitaloceanspaces.com/zls/index.json")?;
-        version = VersionSpec::parse(response.latest)?;
-    }
+    let version = input.context.version;
 
     let arch = match env.arch {
         HostArch::X86 => "x86",
@@ -48,18 +43,26 @@ pub fn download_prebuilt(
     let os = env.os;
 
     let prefix = match os {
-        HostOS::Linux => format!("{arch}-linux"),
-        HostOS::MacOS => format!("{arch}-macos"),
-        HostOS::Windows => format!("{arch}-windows"),
+        HostOS::Linux => format!("zls-linux-{arch}-{version}"),
+        HostOS::MacOS => format!("zls-macos-{arch}-{version}"),
+        HostOS::Windows => format!("zls-windows-{arch}-{version}"),
         _ => unreachable!(),
     };
 
-    let filename = os.get_file_name(BIN, "exe");
+    let filename = if os == HostOS::Windows {
+        format!("{prefix}.zip")
+    } else {
+        format!("{prefix}.tar.xz")
+    };
 
     Ok(Json(DownloadPrebuiltOutput {
-        download_url: format!(
-            "https://zigtools-releases.nyc3.digitaloceanspaces.com/zls/{version}/{prefix}/{filename}"
+        archive_prefix: Some(prefix),
+        checksum_url: Some(format!("https://builds.zigtools.org/{filename}.minisig")),
+        checksum_public_key: Some(
+            "RWR+9B91GBZ0zOjh6Lr17+zKf5BoSuFvrx2xSeDE57uIYvnKBGmMjOex".into(),
         ),
+        download_url: format!("https://builds.zigtools.org/{filename}"),
+        download_name: Some(filename),
         ..DownloadPrebuiltOutput::default()
     }))
 }
@@ -71,26 +74,16 @@ pub fn locate_executables(
     let env = get_host_environment()?;
 
     Ok(Json(LocateExecutablesOutput {
-        primary: Some(ExecutableConfig::new(
-            // proto renames the executable to the tool id.
-            // https://github.com/moonrepo/proto/blob/0441fba931060122b55dd972573e126e607b306e/crates/core/src/tool.rs#L933
-            env.os.get_file_name(get_plugin_id()?, "exe"),
-        )),
+        primary: Some(ExecutableConfig::new(env.os.get_file_name(BIN, "exe"))),
         ..LocateExecutablesOutput::default()
     }))
 }
 
 #[plugin_fn]
 pub fn load_versions(Json(_): Json<LoadVersionsInput>) -> FnResult<Json<LoadVersionsOutput>> {
-    let response: ZlsDist =
-        fetch_json("https://zigtools-releases.nyc3.digitaloceanspaces.com/zls/index.json")?;
+    let response: ZlsDist = fetch_json("https://releases.zigtools.org/v1/zls/index.json")?;
     let versions = response.versions.keys().map(|t| t.to_owned()).collect();
-
-    let mut output = LoadVersionsOutput::from(versions)?;
-    output.aliases.insert(
-        "master".into(),
-        UnresolvedVersionSpec::parse(&response.latest)?,
-    );
+    let output = LoadVersionsOutput::from(versions)?;
 
     Ok(Json(output))
 }
