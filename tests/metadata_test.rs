@@ -9,5 +9,8 @@ async fn registers_metadata() {
 
     assert_eq!(metadata.name, "ZLS");
     assert_eq!(metadata.type_of, PluginType::CommandLine);
-    assert_eq!(metadata.plugin_version.unwrap(), env!("CARGO_PKG_VERSION"));
+    assert_eq!(
+        metadata.plugin_version.unwrap().to_string(),
+        env!("CARGO_PKG_VERSION")
+    );
 }

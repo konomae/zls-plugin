@@ -264,7 +264,8 @@ async fn locates_unix_bin() {
                 },
             })
             .await
-            .primary
+            .exes
+            .get("zls")
             .unwrap()
             .exe_path,
         Some("zls".into())
@@ -289,7 +290,8 @@ async fn locates_windows_bin() {
                 },
             })
             .await
-            .primary
+            .exes
+            .get("zls")
             .unwrap()
             .exe_path,
         Some("zls.exe".into())
