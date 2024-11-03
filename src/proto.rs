@@ -1,16 +1,17 @@
 use crate::zls_dist::ZlsDist;
 use extism_pdk::*;
 use proto_pdk::*;
+use std::collections::HashMap;
 
 static NAME: &str = "ZLS";
-static BIN: &str = "zls";
 
 #[plugin_fn]
 pub fn register_tool(Json(_): Json<ToolMetadataInput>) -> FnResult<Json<ToolMetadataOutput>> {
     Ok(Json(ToolMetadataOutput {
         name: NAME.into(),
         type_of: PluginType::CommandLine,
-        plugin_version: Some(env!("CARGO_PKG_VERSION").into()),
+        minimum_proto_version: Some(Version::new(0, 42, 0)),
+        plugin_version: Version::parse(env!("CARGO_PKG_VERSION")).ok(),
         ..ToolMetadataOutput::default()
     }))
 }
@@ -49,7 +50,7 @@ pub fn download_prebuilt(
         _ => unreachable!(),
     };
 
-    let filename = if os == HostOS::Windows {
+    let filename = if os.is_windows() {
         format!("{prefix}.zip")
     } else {
         format!("{prefix}.tar.xz")
@@ -74,7 +75,10 @@ pub fn locate_executables(
     let env = get_host_environment()?;
 
     Ok(Json(LocateExecutablesOutput {
-        primary: Some(ExecutableConfig::new(env.os.get_file_name(BIN, "exe"))),
+        exes: HashMap::from_iter([(
+            "zls".into(),
+            ExecutableConfig::new_primary(env.os.get_exe_name("zls")),
+        )]),
         ..LocateExecutablesOutput::default()
     }))
 }
