@@ -24,12 +24,12 @@ ZLS plugin does not support hooks.
 Build the plugin:
 
 ```shell
-cargo build --target wasm32-wasi
+cargo build --target wasm32-wasip1
 ```
 
 Test the plugin by running `proto` commands.
 
 ```shell
 proto install zls-test
-proto list-remote zls-test
+proto versions zls-test
 ```
