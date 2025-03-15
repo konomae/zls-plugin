@@ -262,6 +262,7 @@ async fn locates_unix_bin() {
                     version: VersionSpec::parse("0.13.0").unwrap(),
                     ..Default::default()
                 },
+                ..Default::default()
             })
             .await
             .exes
@@ -288,6 +289,7 @@ async fn locates_windows_bin() {
                     version: VersionSpec::parse("0.13.0").unwrap(),
                     ..Default::default()
                 },
+                ..Default::default()
             })
             .await
             .exes
