@@ -3,7 +3,7 @@ use proto_pdk_test_utils::*;
 generate_resolve_versions_tests!("zls-test", {
     "0.13" => "0.13.0",
     "0.13.0" => "0.13.0",
-    "0" => "0.13.0",
+    "0" => "0.14.0",
 });
 
 #[tokio::test(flavor = "multi_thread")]
