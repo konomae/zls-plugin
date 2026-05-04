@@ -20,7 +20,7 @@ async fn supports_linux_arm64() {
     assert_eq!(
         plugin
             .download_prebuilt(DownloadPrebuiltInput {
-                context: ToolContext {
+                context: PluginContext {
                     version: VersionSpec::parse("0.16.0").unwrap(),
                     ..Default::default()
                 },
@@ -54,7 +54,7 @@ async fn supports_linux_x64() {
     assert_eq!(
         plugin
             .download_prebuilt(DownloadPrebuiltInput {
-                context: ToolContext {
+                context: PluginContext {
                     version: VersionSpec::parse("0.16.0").unwrap(),
                     ..Default::default()
                 },
@@ -88,7 +88,7 @@ async fn supports_linux_x86() {
     assert_eq!(
         plugin
             .download_prebuilt(DownloadPrebuiltInput {
-                context: ToolContext {
+                context: PluginContext {
                     version: VersionSpec::parse("0.16.0").unwrap(),
                     ..Default::default()
                 },
@@ -122,7 +122,7 @@ async fn supports_macos_arm64() {
     assert_eq!(
         plugin
             .download_prebuilt(DownloadPrebuiltInput {
-                context: ToolContext {
+                context: PluginContext {
                     version: VersionSpec::parse("0.16.0").unwrap(),
                     ..Default::default()
                 },
@@ -156,7 +156,7 @@ async fn supports_macos_x64() {
     assert_eq!(
         plugin
             .download_prebuilt(DownloadPrebuiltInput {
-                context: ToolContext {
+                context: PluginContext {
                     version: VersionSpec::parse("0.16.0").unwrap(),
                     ..Default::default()
                 },
@@ -190,7 +190,7 @@ async fn supports_windows_x64() {
     assert_eq!(
         plugin
             .download_prebuilt(DownloadPrebuiltInput {
-                context: ToolContext {
+                context: PluginContext {
                     version: VersionSpec::parse("0.16.0").unwrap(),
                     ..Default::default()
                 },
@@ -224,7 +224,7 @@ async fn supports_windows_x86() {
     assert_eq!(
         plugin
             .download_prebuilt(DownloadPrebuiltInput {
-                context: ToolContext {
+                context: PluginContext {
                     version: VersionSpec::parse("0.16.0").unwrap(),
                     ..Default::default()
                 },
@@ -258,7 +258,7 @@ async fn supports_v0_14_0_and_below() {
     assert_eq!(
         plugin
             .download_prebuilt(DownloadPrebuiltInput {
-                context: ToolContext {
+                context: PluginContext {
                     version: VersionSpec::parse("0.14.0").unwrap(),
                     ..Default::default()
                 },
@@ -292,7 +292,7 @@ async fn locates_unix_bin() {
     assert_eq!(
         plugin
             .locate_executables(LocateExecutablesInput {
-                context: ToolContext {
+                context: PluginContext {
                     version: VersionSpec::parse("0.16.0").unwrap(),
                     ..Default::default()
                 },
@@ -319,7 +319,7 @@ async fn locates_windows_bin() {
     assert_eq!(
         plugin
             .locate_executables(LocateExecutablesInput {
-                context: ToolContext {
+                context: PluginContext {
                     version: VersionSpec::parse("0.16.0").unwrap(),
                     ..Default::default()
                 },
