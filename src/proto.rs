@@ -41,16 +41,20 @@ pub fn download_prebuilt(
         _ => unreachable!(),
     };
 
-    let os = env.os;
-
-    let prefix = match os {
-        HostOS::Linux => format!("zls-linux-{arch}-{version}"),
-        HostOS::MacOS => format!("zls-macos-{arch}-{version}"),
-        HostOS::Windows => format!("zls-windows-{arch}-{version}"),
+    let os = match env.os {
+        HostOS::Linux => "linux",
+        HostOS::MacOS => "macos",
+        HostOS::Windows => "windows",
         _ => unreachable!(),
     };
 
-    let filename = if os.is_windows() {
+    let prefix = if version >= VersionSpec::parse("0.15.0")? {
+        format!("zls-{arch}-{os}-{version}")
+    } else {
+        format!("zls-{os}-{arch}-{version}")
+    };
+
+    let filename = if env.os.is_windows() {
         format!("{prefix}.zip")
     } else {
         format!("{prefix}.tar.xz")
@@ -85,7 +89,7 @@ pub fn locate_executables(
 
 #[plugin_fn]
 pub fn load_versions(Json(_): Json<LoadVersionsInput>) -> FnResult<Json<LoadVersionsOutput>> {
-    let response: ZlsDist = fetch_json("https://releases.zigtools.org/v1/zls/index.json")?;
+    let response: ZlsDist = fetch_json("https://builds.zigtools.org/index.json")?;
     let versions = response.versions.keys().map(|t| t.to_owned()).collect();
     let output = LoadVersionsOutput::from(versions)?;
 
