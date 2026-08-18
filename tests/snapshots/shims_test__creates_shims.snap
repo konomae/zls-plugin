@@ -1,10 +1,11 @@
 ---
 source: tests/shims_test.rs
+assertion_line: 4
 expression: "std :: fs ::\nread_to_string(sandbox.path().join(\".proto/shims/registry.json\")).unwrap()"
 ---
 {
   "zls": {
-    "alt_bin": true,
-    "parent": "zls-test"
+    "alt_exe": true,
+    "context": "zls-test"
   }
 }

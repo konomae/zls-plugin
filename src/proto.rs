@@ -10,9 +10,9 @@ pub fn register_tool(Json(_): Json<RegisterToolInput>) -> FnResult<Json<Register
     Ok(Json(RegisterToolOutput {
         name: NAME.into(),
         type_of: PluginType::CommandLine,
-        minimum_proto_version: Some(Version::new(0, 47, 4)),
+        minimum_proto_version: Some(Version::new(0, 60, 0)),
         plugin_version: Version::parse(env!("CARGO_PKG_VERSION")).ok(),
-        ..RegisterToolOutput::default()
+        ..Default::default()
     }))
 }
 
@@ -24,7 +24,7 @@ pub fn download_prebuilt(
 
     check_supported_os_and_arch(
         NAME,
-        &env,
+        env,
         permutations![
             HostOS::Linux => [HostArch::X86, HostArch::X64, HostArch::Arm64],
             HostOS::MacOS => [HostArch::X64, HostArch::Arm64],
@@ -68,7 +68,7 @@ pub fn download_prebuilt(
         ),
         download_url: format!("https://builds.zigtools.org/{filename}"),
         download_name: Some(filename),
-        ..DownloadPrebuiltOutput::default()
+        ..Default::default()
     }))
 }
 
@@ -83,7 +83,7 @@ pub fn locate_executables(
             "zls".into(),
             ExecutableConfig::new_primary(env.os.get_exe_name("zls")),
         )]),
-        ..LocateExecutablesOutput::default()
+        ..Default::default()
     }))
 }
 
